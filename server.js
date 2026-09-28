@@ -68,10 +68,12 @@ const MIME_TYPES = {
 
 // Planos de assinatura (30 créditos = 1 site)
 const PLANS = {
-    'free':      { credits: 30,     label: 'Gratuito',   price: 'Grátis',      duration: 'forever', dailyRestore: false },
-    'status':    { credits: 30,     label: 'Status',     price: 'R$ 40/mês',   duration: 'monthly', dailyRestore: true },
-    'pro':       { credits: 150,    label: 'Pro',        price: 'R$ 150/mês',  duration: 'monthly', dailyRestore: true },
-    'unlimited': { credits: 999999, label: 'Ilimitado',  price: 'R$ 400/ano',  duration: 'yearly',  dailyRestore: true }
+    'free':        { credits: 30,     label: 'Gratuito',                 price: 'Grátis',     duration: 'forever', dailyRestore: false },
+    'status':      { credits: 30,     label: 'Status',                   price: 'R$ 40/mês',  duration: 'monthly', dailyRestore: true },
+    'promo_month': { credits: 300,    label: 'Promoção Mensal',          price: 'R$ 50/mês',  duration: 'monthly', dailyRestore: true },
+    'pro':         { credits: 150,    label: 'Pro',                      price: 'R$ 150/mês', duration: 'monthly', dailyRestore: true },
+    'family':      { credits: 999999, label: 'Plano Família (5 Pessoas)', price: 'R$ 80/ano',  duration: 'yearly',  dailyRestore: true },
+    'unlimited':   { credits: 999999, label: 'Ilimitado Individual',     price: 'R$ 400/ano', duration: 'yearly',  dailyRestore: true }
 };
 
 // Carregar banco de dados

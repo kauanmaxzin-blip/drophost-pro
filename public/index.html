@@ -109,9 +109,17 @@
         <nav class="bg-card border-b border-slate-800 sticky top-0 z-30">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16 items-center">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="cloud-lightning" class="w-8 h-8 text-primary"></i>
-                        <span class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">DropHost Pro</span>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="cloud-lightning" class="w-8 h-8 text-primary"></i>
+                            <span class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">DropHost Pro</span>
+                        </div>
+                        <!-- Botão Ver Planos & Promoções no lado superior esquerdo -->
+                        <button id="btn-open-plans" class="px-3.5 py-1.5 bg-gradient-to-r from-amber-500/20 via-purple-500/20 to-primary/20 border border-amber-500/40 hover:border-amber-400 text-amber-300 hover:text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-lg shadow-amber-500/10 hover:scale-105 active:scale-95 cursor-pointer">
+                            <span class="text-sm">💎</span>
+                            <span>Ver Planos</span>
+                            <span class="px-1.5 py-0.2 rounded-full bg-red-500 text-white text-[9px] font-black uppercase tracking-wider animate-pulse">PROMOÇÃO</span>
+                        </button>
                     </div>
                     <div class="flex items-center gap-4">
                         <span id="nav-user-name" class="text-sm text-slate-300 hidden sm:block">Olá, Usuário</span>
@@ -155,87 +163,17 @@
                             </div>
                         </div>
                     </div>
-                    <button id="btn-open-redeem" class="whitespace-nowrap px-6 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl font-medium text-white transition-colors flex items-center gap-2">
-                        <i data-lucide="key" class="w-4 h-4"></i>
-                        Resgatar Chave de Licença
-                    </button>
-                </div>
-            </div>
-
-            <!-- Seção de Planos -->
-            <div id="plans-section" class="bg-card border border-slate-800 rounded-2xl p-6">
-                <div class="text-center mb-6">
-                    <h3 class="text-xl font-bold text-white mb-1">📦 Escolha seu Plano</h3>
-                    <p class="text-sm text-slate-400">Cada dia seus créditos são restaurados automaticamente!</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Plano Status -->
-                    <div class="relative border border-slate-700 rounded-xl p-5 bg-slate-900/50 hover:border-blue-500/50 transition-all group">
-                        <div class="mb-4">
-                            <h4 class="text-lg font-bold text-white">🔵 Status</h4>
-                            <div class="flex items-baseline gap-1 mt-1">
-                                <span class="text-3xl font-extrabold text-blue-400">R$ 40</span>
-                                <span class="text-slate-400 text-sm">/mês</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-2 text-sm text-slate-300 mb-5">
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 30 créditos (1 site/dia)</li>
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Restauração diária</li>
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Cache RAM Turbo</li>
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Validade: 30 dias</li>
-                        </ul>
-                        <a href="https://wa.me/5575987016246?text=Ol%C3%A1%21%20Quero%20contratar%20o%20plano%20*Status*%20(R%24%2040%2Fm%C3%AAs)%20do%20DropHost%20Pro.%20Meu%20email%20de%20cadastro%3A%20" target="_blank"
-                           class="block w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 rounded-lg transition-colors">
-                            Contratar via WhatsApp
-                        </a>
-                    </div>
-
-                    <!-- Plano Pro -->
-                    <div class="relative border-2 border-primary/50 rounded-xl p-5 bg-primary/5 hover:border-primary transition-all group ring-1 ring-primary/20">
-                        <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-                            <span class="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">⭐ MAIS POPULAR</span>
-                        </div>
-                        <div class="mb-4 mt-2">
-                            <h4 class="text-lg font-bold text-white">🟣 Pro</h4>
-                            <div class="flex items-baseline gap-1 mt-1">
-                                <span class="text-3xl font-extrabold text-primary">R$ 150</span>
-                                <span class="text-slate-400 text-sm">/mês</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-2 text-sm text-slate-300 mb-5">
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 150 créditos (5 sites/dia)</li>
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Restauração diária</li>
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Cache RAM Turbo</li>
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Validade: 30 dias</li>
-                        </ul>
-                        <a href="https://wa.me/5575987016246?text=Ol%C3%A1%21%20Quero%20contratar%20o%20plano%20*Pro*%20(R%24%20150%2Fm%C3%AAs)%20do%20DropHost%20Pro.%20Meu%20email%20de%20cadastro%3A%20" target="_blank"
-                           class="block w-full text-center bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-medium py-2.5 rounded-lg transition-colors shadow-lg shadow-primary/25">
-                            Contratar via WhatsApp
-                        </a>
-                    </div>
-
-                    <!-- Plano Ilimitado -->
-                    <div class="relative border border-yellow-500/30 rounded-xl p-5 bg-yellow-500/5 hover:border-yellow-500/50 transition-all group">
-                        <div class="mb-4">
-                            <h4 class="text-lg font-bold text-white">🟡 Ilimitado</h4>
-                            <div class="flex items-baseline gap-1 mt-1">
-                                <span class="text-3xl font-extrabold text-yellow-400">R$ 400</span>
-                                <span class="text-slate-400 text-sm">/ano</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-2 text-sm text-slate-300 mb-5">
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Créditos ilimitados</li>
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Restauração diária</li>
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Cache RAM Turbo</li>
-                            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Validade: 1 ano</li>
-                        </ul>
-                        <a href="https://wa.me/5575987016246?text=Ol%C3%A1%21%20Quero%20contratar%20o%20plano%20*Ilimitado*%20(R%24%20400%2Fano)%20do%20DropHost%20Pro.%20Meu%20email%20de%20cadastro%3A%20" target="_blank"
-                           class="block w-full text-center bg-yellow-600 hover:bg-yellow-500 text-white font-medium py-2.5 rounded-lg transition-colors">
-                            Contratar via WhatsApp
-                        </a>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="document.getElementById('btn-open-plans').click()" class="whitespace-nowrap px-5 py-3 bg-gradient-to-r from-amber-500/20 to-primary/20 hover:from-amber-500/30 hover:to-primary/30 border border-amber-500/40 rounded-xl font-bold text-amber-300 hover:text-white transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-amber-500/5">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+                            Ver Promoções
+                        </button>
+                        <button id="btn-open-redeem" class="whitespace-nowrap px-6 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl font-medium text-white transition-colors flex items-center gap-2">
+                            <i data-lucide="key" class="w-4 h-4"></i>
+                            Resgatar Licença
+                        </button>
                     </div>
                 </div>
-                <p class="text-center text-xs text-slate-500 mt-4">Após o pagamento, você receberá uma chave de licença para ativar seu plano.</p>
             </div>
 
             <!-- Upload Section -->
@@ -427,9 +365,11 @@
                             <div>
                                 <label class="block text-sm font-medium text-slate-400 mb-1">Selecione o Plano</label>
                                 <select id="license-plan-select" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary text-white">
-                                    <option value="status">Status — R$ 40/mês (30 cr)</option>
-                                    <option value="pro">Pro — R$ 150/mês (150 cr)</option>
-                                    <option value="unlimited">Ilimitado — R$ 400/ano (∞)</option>
+                                    <option value="status">Status — R$ 40/mês (30 cr/dia)</option>
+                                    <option value="promo_month">Promoção — R$ 50/mês (300 cr/dia) 🔥</option>
+                                    <option value="pro">Pro — R$ 150/mês (150 cr/dia)</option>
+                                    <option value="family">Família (5 Pessoas) — R$ 80/ano (Ilimitado) 👨‍👩‍👧‍👦</option>
+                                    <option value="unlimited">Ilimitado Individual — R$ 400/ano (∞)</option>
                                 </select>
                             </div>
                             <button id="btn-generate-license" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-medium py-2 rounded-lg transition-colors flex justify-center items-center gap-2">
@@ -517,6 +457,209 @@
                     <button id="btn-share-wa" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
                         <i data-lucide="share-2" class="w-4 h-4"></i> Compartilhar
                     </button>
+                </div>
+            </div>
+        </div>
+    <!-- Plans & Promotions Modal -->
+    <div id="modal-plans" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/85 backdrop-blur-md p-4 overflow-y-auto opacity-0 transition-opacity">
+        <div class="bg-slate-900 border border-slate-700/80 rounded-3xl w-full max-w-5xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 my-8">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-slate-900 via-primary/20 to-slate-900 border-b border-slate-800 p-6 flex items-center justify-between">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-1">
+                        <span class="text-2xl">💎</span>
+                        <h3 class="text-2xl font-black text-white tracking-tight">Planos & Promoções DropHost Pro</h3>
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-black bg-gradient-to-r from-amber-500 to-red-500 text-white shadow-md uppercase tracking-wider animate-pulse">🔥 OFERTAS ATIVAS</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-400">Créditos restaurados todos os dias automaticamente • Ativação imediata no WhatsApp</p>
+                </div>
+                <button class="modal-close p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-all">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-8 max-h-[75vh] overflow-y-auto scrollbar-thin">
+                
+                <!-- SEÇÃO 1: SUPER PROMOÇÕES EM DESTAQUE -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
+                        <h4 class="text-xs sm:text-sm font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-amber-300">
+                            🔥 SUPER PROMOÇÕES ESPECIAIS (TEMPO LIMITADO)
+                        </h4>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- PROMOÇÃO 1: Plano Família 5 Pessoas -->
+                        <div class="relative rounded-2xl p-6 bg-gradient-to-b from-amber-500/15 via-purple-500/10 to-slate-950 border-2 border-amber-500/70 shadow-2xl shadow-amber-500/15 hover:border-amber-400 transition-all flex flex-col justify-between group">
+                            <div class="absolute -top-3.5 right-4 sm:right-6">
+                                <span class="bg-gradient-to-r from-amber-500 to-red-500 text-white text-[10px] sm:text-xs font-black px-3.5 py-1 rounded-full shadow-lg uppercase tracking-wider flex items-center gap-1">
+                                    👨‍👩‍👧‍👦 SUPER OFERTA FAMÍLIA
+                                </span>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2.5 mb-2 mt-1">
+                                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-xl">
+                                        👨‍👩‍👧‍👦
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-black text-white">Plano Família</h4>
+                                        <p class="text-xs text-amber-300 font-semibold">5 Pessoas / Contas liberadas</p>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-300 mb-4">Todo mundo junto usando o DropHost Pro com liberdade total e sem limites!</p>
+                                
+                                <div class="flex items-baseline gap-2 mb-4 p-3.5 bg-amber-500/10 rounded-2xl border border-amber-500/30">
+                                    <span class="text-4xl sm:text-5xl font-black text-amber-400">R$ 80</span>
+                                    <div class="flex flex-col">
+                                        <span class="text-slate-200 text-sm font-bold">/ano</span>
+                                        <span class="text-[10px] text-amber-300 font-semibold">Para todo mundo!</span>
+                                    </div>
+                                    <span class="text-xs text-emerald-400 font-bold ml-auto bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">Economia Máxima 🚀</span>
+                                </div>
+
+                                <ul class="space-y-2.5 text-xs sm:text-sm text-slate-200 mb-6">
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> <strong>5 Pessoas / Contas inclusas</strong></li>
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> <strong>Créditos INFINITOS</strong> e uso ilimitado</li>
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> <strong>Restauração diária automática</strong></li>
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> Servidores Turbo RAM de ultra velocidade</li>
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> Válido por <strong>1 Ano Inteiro</strong> (365 dias)</li>
+                                </ul>
+                            </div>
+
+                            <a href="https://wa.me/5575987016246?text=Ol%C3%A1%20Caique%21%20Quero%20aproveitar%20a%20*Promo%C3%A7%C3%A3o%20Fam%C3%ADlia%20(5%20Pessoas)*%20por%20R%24%2080%2Fano%20com%20cr%C3%A9ditos%20infinitos!%20Meu%20email%3A%20" target="_blank"
+                               class="w-full text-center py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-400 hover:to-red-400 text-white font-extrabold text-sm transition-all shadow-xl shadow-orange-500/30 flex items-center justify-center gap-2 hover:scale-[1.02] cursor-pointer">
+                                <i data-lucide="zap" class="w-4 h-4"></i> Contratar Família via WhatsApp
+                            </a>
+                        </div>
+
+                        <!-- PROMOÇÃO 2: Promoção Mensal 300 créditos -->
+                        <div class="relative rounded-2xl p-6 bg-gradient-to-b from-emerald-500/15 via-primary/10 to-slate-950 border-2 border-emerald-500/70 shadow-2xl shadow-emerald-500/15 hover:border-emerald-400 transition-all flex flex-col justify-between group">
+                            <div class="absolute -top-3.5 right-4 sm:right-6">
+                                <span class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 text-[10px] sm:text-xs font-black px-3.5 py-1 rounded-full shadow-lg uppercase tracking-wider flex items-center gap-1">
+                                    ⚡ 10X MAIS CRÉDITOS
+                                </span>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2.5 mb-2 mt-1">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-xl">
+                                        🔥
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-black text-white">Promoção Mensal</h4>
+                                        <p class="text-xs text-emerald-300 font-semibold">300 Créditos por dia</p>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-300 mb-4">O dobro de créditos do plano Pro por apenas um terço do preço!</p>
+                                
+                                <div class="flex items-baseline gap-2 mb-4 p-3.5 bg-emerald-500/10 rounded-2xl border border-emerald-500/30">
+                                    <span class="text-4xl sm:text-5xl font-black text-emerald-400">R$ 50</span>
+                                    <div class="flex flex-col">
+                                        <span class="text-slate-200 text-sm font-bold">/mês</span>
+                                        <span class="text-[10px] text-emerald-300 font-semibold">Super Custo-Benefício</span>
+                                    </div>
+                                    <span class="text-xs text-amber-300 font-bold ml-auto bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20">10 sites/dia 🚀</span>
+                                </div>
+
+                                <ul class="space-y-2.5 text-xs sm:text-sm text-slate-200 mb-6">
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> <strong>300 créditos</strong> (10 sites por dia)</li>
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> <strong>Restauração diária automática</strong></li>
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> Cache Turbo RAM + Compressão Gzip</li>
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> QR Code e Link público em cada site</li>
+                                    <li class="flex items-center gap-2.5"><span class="text-emerald-400 font-black text-base">✓</span> Validade de <strong>30 dias</strong></li>
+                                </ul>
+                            </div>
+
+                            <a href="https://wa.me/5575987016246?text=Ol%C3%A1%20Caique%21%20Quero%20aproveitar%20a%20*Promo%C3%A7%C3%A3o%20Mensal%20(300%20cr%C3%A9ditos)*%20por%20R%24%2050%2Fm%C3%AAs!%20Meu%20email%3A%20" target="_blank"
+                               class="w-full text-center py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-sm transition-all shadow-xl shadow-emerald-500/30 flex items-center justify-center gap-2 hover:scale-[1.02] cursor-pointer">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i> Contratar Promoção via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 2: PLANOS TRADICIONAIS -->
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">
+                        📦 OUTROS PLANOS DISPONÍVEIS
+                    </h4>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Status -->
+                        <div class="rounded-2xl p-5 bg-slate-900/70 border border-slate-700/80 hover:border-blue-500/60 transition-all flex flex-col justify-between">
+                            <div>
+                                <h5 class="text-base font-bold text-white mb-1 flex items-center gap-1.5">
+                                    <span>🔵</span> Status
+                                </h5>
+                                <div class="flex items-baseline gap-1 mb-3">
+                                    <span class="text-3xl font-extrabold text-blue-400">R$ 40</span>
+                                    <span class="text-slate-400 text-xs">/mês</span>
+                                </div>
+                                <ul class="space-y-2 text-xs text-slate-300 mb-5">
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> 30 créditos (1 site/dia)</li>
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Restauração diária</li>
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Cache Turbo RAM</li>
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Validade: 30 dias</li>
+                                </ul>
+                            </div>
+                            <a href="https://wa.me/5575987016246?text=Ol%C3%A1%21%20Quero%20contratar%20o%20plano%20*Status*%20(R%24%2040%2Fm%C3%AAs)%20do%20DropHost%20Pro.%20Meu%20email%3A%20" target="_blank"
+                               class="w-full text-center py-2.5 bg-blue-600/90 hover:bg-blue-600 text-white text-xs font-bold rounded-xl transition-colors">
+                                Contratar Status
+                            </a>
+                        </div>
+
+                        <!-- Pro -->
+                        <div class="rounded-2xl p-5 bg-slate-900/70 border border-purple-500/50 hover:border-purple-400 transition-all flex flex-col justify-between">
+                            <div>
+                                <h5 class="text-base font-bold text-white mb-1 flex items-center gap-1.5">
+                                    <span>🟣</span> Pro
+                                </h5>
+                                <div class="flex items-baseline gap-1 mb-3">
+                                    <span class="text-3xl font-extrabold text-purple-400">R$ 150</span>
+                                    <span class="text-slate-400 text-xs">/mês</span>
+                                </div>
+                                <ul class="space-y-2 text-xs text-slate-300 mb-5">
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> 150 créditos (5 sites/dia)</li>
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Restauração diária</li>
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Cache Turbo RAM</li>
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Validade: 30 dias</li>
+                                </ul>
+                            </div>
+                            <a href="https://wa.me/5575987016246?text=Ol%C3%A1%21%20Quero%20contratar%20o%20plano%20*Pro*%20(R%24%20150%2Fm%C3%AAs)%20do%20DropHost%20Pro.%20Meu%20email%3A%20" target="_blank"
+                               class="w-full text-center py-2.5 bg-purple-600/90 hover:bg-purple-600 text-white text-xs font-bold rounded-xl transition-colors">
+                                Contratar Pro
+                            </a>
+                        </div>
+
+                        <!-- Ilimitado Individual -->
+                        <div class="rounded-2xl p-5 bg-slate-900/70 border border-yellow-500/50 hover:border-yellow-400 transition-all flex flex-col justify-between">
+                            <div>
+                                <h5 class="text-base font-bold text-white mb-1 flex items-center gap-1.5">
+                                    <span>🟡</span> Ilimitado Individual
+                                </h5>
+                                <div class="flex items-baseline gap-1 mb-3">
+                                    <span class="text-3xl font-extrabold text-yellow-400">R$ 400</span>
+                                    <span class="text-slate-400 text-xs">/ano</span>
+                                </div>
+                                <ul class="space-y-2 text-xs text-slate-300 mb-5">
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Créditos Ilimitados</li>
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Uso diário sem limites</li>
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Cache Turbo RAM</li>
+                                    <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Validade: 1 Ano</li>
+                                </ul>
+                            </div>
+                            <a href="https://wa.me/5575987016246?text=Ol%C3%A1%21%20Quero%20contratar%20o%20plano%20*Ilimitado*%20(R%24%20400%2Fano)%20do%20DropHost%20Pro.%20Meu%20email%3A%20" target="_blank"
+                               class="w-full text-center py-2.5 bg-yellow-600 hover:bg-yellow-500 text-slate-950 font-bold text-xs rounded-xl transition-colors">
+                                Contratar Ilimitado
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center pt-4 border-t border-slate-800">
+                    <p class="text-xs text-slate-400">
+                        Após o pagamento via PIX, você recebe imediatamente a <strong>Chave de Licença</strong> para ativar em "Resgatar Licença".
+                    </p>
                 </div>
             </div>
         </div>

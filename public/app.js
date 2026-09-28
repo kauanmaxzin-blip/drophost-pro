@@ -9,10 +9,12 @@ let currentUser = null;
 let publicUrl = null; // URL pública do Cloudflare Tunnel
 
 const PLANS_INFO = {
-    'free':      { label: 'Gratuito',  total: 30,     price: 'Grátis' },
-    'status':    { label: 'Status',    total: 30,     price: 'R$ 40/mês' },
-    'pro':       { label: 'Pro',       total: 150,    price: 'R$ 150/mês' },
-    'unlimited': { label: 'Ilimitado', total: 999999, price: 'R$ 400/ano' }
+    'free':        { label: 'Gratuito',                  total: 30,     price: 'Grátis' },
+    'status':      { label: 'Status',                    total: 30,     price: 'R$ 40/mês' },
+    'promo_month': { label: 'Promoção Mensal (300 cr)',   total: 300,    price: 'R$ 50/mês' },
+    'pro':         { label: 'Pro',                       total: 150,    price: 'R$ 150/mês' },
+    'family':      { label: 'Plano Família (5 Pessoas)',  total: 999999, price: 'R$ 80/ano' },
+    'unlimited':   { label: 'Ilimitado',                 total: 999999, price: 'R$ 400/ano' }
 };
 
 const TEMPLATES = {
@@ -201,9 +203,28 @@ function setupEventListeners() {
     document.getElementById('btn-deploy')?.addEventListener('click', handleDeploy);
 
     // Modals
+    document.getElementById('btn-open-plans')?.addEventListener('click', () => openModal('modal-plans'));
     document.getElementById('btn-open-redeem')?.addEventListener('click', () => openModal('modal-redeem'));
     document.querySelectorAll('.modal-close').forEach(btn => {
-        btn.addEventListener('click', () => { closeModal('modal-redeem'); closeModal('modal-success'); });
+        btn.addEventListener('click', () => { 
+            closeModal('modal-redeem'); 
+            closeModal('modal-success'); 
+            closeModal('modal-plans');
+        });
+    });
+
+    // Fechar modais ao clicar no fundo escuro ou apertar ESC
+    ['modal-redeem', 'modal-success', 'modal-plans'].forEach(modalId => {
+        document.getElementById(modalId)?.addEventListener('click', (e) => {
+            if (e.target.id === modalId) closeModal(modalId);
+        });
+    });
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeModal('modal-redeem');
+            closeModal('modal-success');
+            closeModal('modal-plans');
+        }
     });
 
     // Redeem
@@ -327,10 +348,12 @@ async function updateDashboardUI() {
     if (currentUser.role === 'admin') adminBtn.classList.remove('hidden');
     else adminBtn.classList.add('hidden');
 
-    // Esconder planos para admin
-    const plansSection = document.getElementById('plans-section');
-    if (currentUser.role === 'admin') plansSection.classList.add('hidden');
-    else plansSection.classList.remove('hidden');
+    // Esconder botão de planos para admin
+    const plansBtn = document.getElementById('btn-open-plans');
+    if (plansBtn) {
+        if (currentUser.role === 'admin') plansBtn.classList.add('hidden');
+        else plansBtn.classList.remove('hidden');
+    }
 
     // Credit card
     const planInfo = PLANS_INFO[currentUser.plan] || PLANS_INFO['free'];
@@ -547,16 +570,19 @@ window.copySiteUrl = function(url) {
 // ====================================================================
 function openModal(id) {
     const modal = document.getElementById(id);
+    if (!modal) return;
     modal.classList.remove('hidden');
     modal.style.display = 'flex';
     setTimeout(() => {
         modal.style.opacity = '1';
         modal.querySelector('div')?.classList?.remove('scale-95');
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     }, 10);
 }
 
 function closeModal(id) {
     const modal = document.getElementById(id);
+    if (!modal) return;
     modal.style.opacity = '0';
     setTimeout(() => {
         modal.classList.add('hidden');

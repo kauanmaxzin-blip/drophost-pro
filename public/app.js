@@ -568,7 +568,7 @@ window.copySiteUrl = function(url) {
 // ====================================================================
 // Modais
 // ====================================================================
-function openModal(id) {
+window.openModal = function(id) {
     const modal = document.getElementById(id);
     if (!modal) return;
     modal.classList.remove('hidden');
@@ -578,9 +578,9 @@ function openModal(id) {
         modal.querySelector('div')?.classList?.remove('scale-95');
         if (typeof lucide !== 'undefined') lucide.createIcons();
     }, 10);
-}
+};
 
-function closeModal(id) {
+window.closeModal = function(id) {
     const modal = document.getElementById(id);
     if (!modal) return;
     modal.style.opacity = '0';
@@ -588,7 +588,7 @@ function closeModal(id) {
         modal.classList.add('hidden');
         modal.style.display = '';
     }, 300);
-}
+};
 
 function showSuccessModal(url) {
     const urlEl = document.getElementById('success-url');

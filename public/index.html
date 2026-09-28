@@ -397,6 +397,76 @@
                 </div>
 
             </div>
+
+            <!-- Linha 2 do Admin: Liberação Família & Backup -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                <!-- Liberação Exclusiva Plano Família -->
+                <div class="bg-card border-2 border-amber-500/40 rounded-2xl flex flex-col overflow-hidden shadow-xl shadow-amber-500/5">
+                    <div class="p-5 border-b border-slate-800 bg-gradient-to-r from-amber-500/15 via-purple-500/10 to-slate-900 flex items-center justify-between">
+                        <h3 class="font-bold text-white flex items-center gap-2">
+                            <span class="text-xl">👨‍👩‍👧‍👦</span>
+                            Liberação Exclusiva — Plano Família
+                        </h3>
+                        <span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase">Apenas Admin</span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col space-y-4">
+                        <p class="text-xs text-slate-400">
+                            Por segurança, o <strong>Plano Família (R$ 80/ano • Infinito)</strong> só pode ser ativado por você informando o Gmail do cliente e a sua senha de Administrador.
+                        </p>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Gmail / Email do Cliente</label>
+                            <input type="email" id="family-client-email" placeholder="cliente@gmail.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Sua Senha de Administrador (Confirmação)</label>
+                            <input type="password" id="family-admin-password" placeholder="Digite sua senha de admin" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                        </div>
+
+                        <div id="family-activate-msg" class="hidden p-3 rounded-lg text-xs font-medium"></div>
+
+                        <button id="btn-activate-family" class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-400 hover:to-red-400 text-white font-bold py-2.5 rounded-lg transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 cursor-pointer">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            Liberar Plano Família
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Backup e Segurança de Dados -->
+                <div class="bg-card border border-slate-800 rounded-2xl flex flex-col overflow-hidden">
+                    <div class="p-5 border-b border-slate-800 bg-slate-900/50 flex items-center justify-between">
+                        <h3 class="font-semibold text-white flex items-center gap-2">
+                            <i data-lucide="database" class="w-5 h-5 text-emerald-400"></i>
+                            Segurança & Backup das Contas
+                        </h3>
+                        <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Proteção Ativa</span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <p class="text-xs text-slate-400">
+                            Baixe uma cópia de segurança das contas cadastradas para garantir que nenhum cliente seja perdido após atualizações no site.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <button id="btn-download-backup" class="py-2.5 px-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer">
+                                <i data-lucide="download" class="w-4 h-4 text-emerald-400"></i>
+                                Baixar Backup (JSON)
+                            </button>
+                            <label class="py-2.5 px-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer">
+                                <i data-lucide="upload" class="w-4 h-4 text-primary"></i>
+                                <span>Restaurar Backup</span>
+                                <input type="file" id="input-restore-backup" accept=".json" class="hidden">
+                            </label>
+                        </div>
+
+                        <div id="backup-status-msg" class="hidden p-3 rounded-lg text-xs font-medium"></div>
+
+                        <p class="text-[11px] text-slate-500 border-t border-slate-800 pt-3">
+                            💡 <strong>Dica:</strong> Sempre que quiser garantir que novas contas não sejam perdidas ao atualizar o código no GitHub, clique em "Baixar Backup".
+                        </p>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 

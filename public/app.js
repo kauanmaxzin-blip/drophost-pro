@@ -238,6 +238,11 @@ function setupEventListeners() {
         showToast('Chave copiada! 📋');
     });
 
+    // Admin Liberação Família & Backup
+    document.getElementById('btn-activate-family')?.addEventListener('click', handleFamilyActivate);
+    document.getElementById('btn-download-backup')?.addEventListener('click', handleDownloadBackup);
+    document.getElementById('input-restore-backup')?.addEventListener('change', handleRestoreBackup);
+
     // Share WhatsApp
     document.getElementById('btn-share-wa')?.addEventListener('click', () => {
         const url = document.getElementById('success-url')?.href;
@@ -765,4 +770,99 @@ function showToast(msg) {
         toast.style.transition = 'opacity 0.3s';
         setTimeout(() => toast.remove(), 300);
     }, 2000);
+}
+
+// ====================================================================
+// Liberação Exclusiva de Plano Família (Admin)
+// ====================================================================
+async function handleFamilyActivate() {
+    const emailInput = document.getElementById('family-client-email');
+    const passInput = document.getElementById('family-admin-password');
+    const msgEl = document.getElementById('family-activate-msg');
+    const btn = document.getElementById('btn-activate-family');
+
+    const targetEmail = emailInput.value.trim();
+    const adminPassword = passInput.value.trim();
+
+    if (!targetEmail || !adminPassword) {
+        msgEl.className = 'block p-3 rounded-lg text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20';
+        msgEl.innerText = 'Preencha o Gmail do cliente e a sua senha de Admin.';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<svg class="w-4 h-4 animate-spin inline-block mr-1" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" stroke-dasharray="31.4" stroke-dashoffset="10" stroke-linecap="round"/></svg> Liberando...';
+
+    try {
+        const data = await api('POST', '/api/admin/family-activate', { targetEmail, adminPassword });
+        msgEl.className = 'block p-3 rounded-lg text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+        msgEl.innerText = data.message;
+        emailInput.value = '';
+        passInput.value = '';
+        
+        // Atualizar lista de usuários e licenças
+        const users = await api('GET', '/api/admin/users');
+        renderAdminUsers(users);
+        const licenses = await api('GET', '/api/admin/licenses');
+        renderAdminLicenses(licenses);
+
+        showToast('Plano Família liberado com sucesso! 👨‍👩‍👧‍👦');
+    } catch (err) {
+        msgEl.className = 'block p-3 rounded-lg text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20';
+        msgEl.innerText = err.message;
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="shield-check" class="w-4 h-4"></i> Liberar Plano Família';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+}
+
+// ====================================================================
+// Backup & Segurança de Dados (Admin)
+// ====================================================================
+async function handleDownloadBackup() {
+    try {
+        const data = await api('GET', '/api/admin/backup');
+        const jsonStr = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `drophost-backup-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Backup baixado com sucesso! 💾');
+    } catch (err) {
+        alert('Erro ao baixar backup: ' + err.message);
+    }
+}
+
+async function handleRestoreBackup(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const msgEl = document.getElementById('backup-status-msg');
+    const reader = new FileReader();
+
+    reader.onload = async (event) => {
+        try {
+            const backup = JSON.parse(event.target.result);
+            const data = await api('POST', '/api/admin/restore', { backup });
+            msgEl.className = 'block p-3 rounded-lg text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+            msgEl.innerText = data.message;
+            
+            const users = await api('GET', '/api/admin/users');
+            renderAdminUsers(users);
+            const licenses = await api('GET', '/api/admin/licenses');
+            renderAdminLicenses(licenses);
+
+            showToast('Backup restaurado! ✅');
+        } catch (err) {
+            msgEl.className = 'block p-3 rounded-lg text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20';
+            msgEl.innerText = 'Erro ao restaurar: ' + err.message;
+        } finally {
+            e.target.value = '';
+        }
+    };
+    reader.readAsText(file);
 }

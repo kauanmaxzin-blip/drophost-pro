@@ -508,6 +508,105 @@ app.post('/api/admin/users/:id/credits', requireAuth, requireAdmin, (req, res) =
     res.json({ message: 'Créditos adicionados.', user: { id: user.id, credits: user.credits } });
 });
 
+// Liberação exclusiva de Plano Família (exige Gmail do cliente e senha do Admin)
+app.post('/api/admin/family-activate', requireAuth, requireAdmin, (req, res) => {
+    const { targetEmail, adminPassword } = req.body;
+    if (!targetEmail || !adminPassword) {
+        return res.status(400).json({ error: 'Informe o Gmail do cliente e a sua senha de Administrador.' });
+    }
+
+    // Validar a senha do Administrador que está fazendo a liberação
+    const isPasswordValid = bcrypt.compareSync(adminPassword, req.user.passwordHash);
+    if (!isPasswordValid) {
+        return res.status(401).json({ error: '❌ Senha de Administrador incorreta! Liberação cancelada por segurança.' });
+    }
+
+    const cleanEmail = targetEmail.trim().toLowerCase();
+    const user = db.users.find(u => u.email.toLowerCase() === cleanEmail);
+    if (!user) {
+        return res.status(404).json({ error: `❌ Conta com o email "${cleanEmail}" não foi encontrada. O cliente precisa criar a conta primeiro!` });
+    }
+
+    // Ativar o Plano Família
+    const now = new Date();
+    user.plan = 'family';
+    user.credits = PLANS['family'].credits; // 999999 créditos
+    user.lastRestore = now.toISOString().split('T')[0];
+    const expires = new Date();
+    expires.setFullYear(expires.getFullYear() + 1);
+    user.planExpiresAt = expires.toISOString();
+
+    // Registrar chave de auditoria
+    const familyKey = `FAMILIA-${crypto.randomBytes(3).toString('hex').toUpperCase()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
+    db.licenses.push({
+        key: familyKey,
+        plan: 'family',
+        credits: PLANS['family'].credits,
+        createdBy: req.user.id,
+        redeemedBy: user.id,
+        redeemedAt: now.toISOString(),
+        isUsed: true
+    });
+
+    markDbDirty();
+    console.log(`👨‍👩‍👧‍👦 PLANO FAMÍLIA LIBERADO: ${user.name} (${user.email}) pelo Admin`);
+
+    res.json({
+        message: `✅ Plano Família liberado com sucesso para ${user.name} (${user.email})! Créditos infinitos por 1 ano.`,
+        key: familyKey,
+        user: { id: user.id, name: user.name, email: user.email, plan: user.plan, credits: user.credits }
+    });
+});
+
+// Backup completo de contas e dados (Admin)
+app.get('/api/admin/backup', requireAuth, requireAdmin, (req, res) => {
+    res.json({
+        exportDate: new Date().toISOString(),
+        users: db.users,
+        licenses: db.licenses,
+        sites: db.sites,
+        stats: db.stats
+    });
+});
+
+// Restaurar backup de contas e dados (Admin)
+app.post('/api/admin/restore', requireAuth, requireAdmin, (req, res) => {
+    const { backup } = req.body;
+    if (!backup || !Array.isArray(backup.users)) {
+        return res.status(400).json({ error: 'Arquivo ou formato de backup inválido.' });
+    }
+
+    let count = 0;
+    backup.users.forEach(imported => {
+        const idx = db.users.findIndex(u => u.email.toLowerCase() === imported.email.toLowerCase());
+        if (idx >= 0) {
+            // Se já existe e não for o admin logado, atualiza
+            if (db.users[idx].id !== req.user.id) {
+                db.users[idx] = imported;
+                count++;
+            }
+        } else {
+            db.users.push(imported);
+            count++;
+        }
+    });
+
+    if (Array.isArray(backup.licenses)) {
+        backup.licenses.forEach(l => {
+            if (!db.licenses.some(e => e.key === l.key)) db.licenses.push(l);
+        });
+    }
+
+    if (Array.isArray(backup.sites)) {
+        backup.sites.forEach(s => {
+            if (!db.sites.some(e => e.slug === s.slug)) db.sites.push(s);
+        });
+    }
+
+    markDbDirty();
+    res.json({ message: `✅ Sucesso! ${count} contas sincronizadas/restauradas com sucesso.` });
+});
+
 // ============================================================
 // 6. Cloudflare Tunnel — Acesso mundial automático
 // ============================================================

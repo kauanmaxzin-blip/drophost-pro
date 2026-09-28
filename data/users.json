@@ -1,0 +1,15 @@
+[
+  {
+    "id": "9c06480a-62b8-4e3c-9483-213f4af117b4",
+    "name": "Admin",
+    "email": "admin@drophost.com",
+    "passwordHash": "$2b$10$MlnqcGL2zbQb/cgnjW6uher9a4sgXRpWpOKiXmHTxwP99Kq6c8yxm",
+    "role": "admin",
+    "credits": 999999,
+    "plan": "unlimited",
+    "planExpiresAt": null,
+    "lastRestore": "2026-09-28",
+    "createdAt": "2026-09-27T22:44:32.778Z",
+    "isActive": true
+  }
+]

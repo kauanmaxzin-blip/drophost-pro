@@ -1,0 +1,27 @@
+{
+  "name": "drophost-pro",
+  "version": "1.0.0",
+  "description": "DropHost Pro - Plataforma de Hospedagem Web com Sistema de Créditos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "hosting",
+    "html",
+    "credits"
+  ],
+  "author": "Caique",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "dependencies": {
+    "adm-zip": "^0.6.1",
+    "bcryptjs": "^3.0.3",
+    "compression": "^1.8.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.4.0",
+    "uuid": "^14.0.2"
+  }
+}

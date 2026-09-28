@@ -397,7 +397,9 @@ app.post('/api/upload', requireAuth, upload.any(), (req, res) => {
     req.user.credits -= creditCost;
     db.stats.totalCreditsUsed += creditCost;
 
-    const baseUrl = activeTunnel || `http://localhost:${PORT}`;
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+    const host = req.get('host');
+    const baseUrl = activeTunnel || `${protocol}://${host}`;
 
     const newSite = {
         slug,

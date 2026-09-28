@@ -435,8 +435,8 @@ async function handleDeploy() {
         const data = await apiUpload(formData);
         
         // Determinar URL pública
-        let siteUrl = data.site?.url || `${window.location.origin}/s/${data.site?.slug}/`;
-        if (publicUrl) {
+        let siteUrl = `${window.location.origin}/s/${data.site?.slug}/`;
+        if (publicUrl && window.location.hostname === 'localhost') {
             siteUrl = `${publicUrl}/s/${data.site?.slug}/`;
         }
 
@@ -486,7 +486,7 @@ async function renderSitesList() {
 
         grid.innerHTML = userSites.map(site => {
             const localUrl = `${window.location.origin}/s/${site.slug}/`;
-            const worldUrl = publicUrl ? `${publicUrl}/s/${site.slug}/` : localUrl;
+            const worldUrl = (publicUrl && window.location.hostname === 'localhost') ? `${publicUrl}/s/${site.slug}/` : localUrl;
             const displayUrl = worldUrl.length > 40 ? worldUrl.substring(0, 40) + '...' : worldUrl;
 
             return `

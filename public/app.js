@@ -260,9 +260,9 @@ function switchAuthTab(tab, btnElement) {
     const loginBtn = document.getElementById('tab-login');
     const regBtn = document.getElementById('tab-register');
     [loginBtn, regBtn].forEach(b => {
-        b.className = "flex-1 pb-3 text-sm font-medium text-slate-400 hover:text-slate-300 transition-colors";
+        b.className = "flex-1 pb-3 text-sm font-medium text-slate-500 hover:text-slate-300 transition-all";
     });
-    btnElement.className = "flex-1 pb-3 text-sm font-medium text-primary border-b-2 border-primary transition-colors";
+    btnElement.className = "flex-1 pb-3 text-sm font-medium text-indigo-400 border-b-2 border-indigo-400 transition-all";
     hideAuthError();
 }
 
@@ -402,10 +402,10 @@ function switchUploadMode(mode) {
     const btnCode = document.getElementById('tab-code');
 
     if (mode === 'upload') {
-        btnUpload.className = "px-3 py-1.5 text-sm rounded-md bg-slate-800 text-white shadow-sm transition-all";
+        btnUpload.className = "px-3 py-1.5 text-sm rounded-md bg-indigo-600/30 text-white shadow-sm transition-all border border-indigo-500/20";
         btnCode.className = "px-3 py-1.5 text-sm rounded-md text-slate-400 hover:text-white transition-all";
     } else {
-        btnCode.className = "px-3 py-1.5 text-sm rounded-md bg-slate-800 text-white shadow-sm transition-all";
+        btnCode.className = "px-3 py-1.5 text-sm rounded-md bg-indigo-600/30 text-white shadow-sm transition-all border border-indigo-500/20";
         btnUpload.className = "px-3 py-1.5 text-sm rounded-md text-slate-400 hover:text-white transition-all";
     }
 }
@@ -518,15 +518,15 @@ async function renderSitesList() {
             const displayUrl = worldUrl.length > 40 ? worldUrl.substring(0, 40) + '...' : worldUrl;
 
             return `
-            <div class="bg-card border border-slate-800 rounded-xl p-4 flex flex-col group hover:border-slate-700 transition-colors">
+            <div class="glass-card rounded-xl p-4 flex flex-col group hover:border-indigo-500/30 transition-all hover-lift">
                 <div class="flex justify-between items-start mb-3">
                     <div class="flex items-center gap-2 min-w-0">
-                        <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 shrink-0">
                             <i data-lucide="globe" class="w-4 h-4"></i>
                         </div>
                         <div class="min-w-0">
-                            <h4 class="text-slate-200 font-medium text-sm truncate" title="${site.title || site.slug}">${site.title || site.slug}</h4>
-                            <a href="${worldUrl}" target="_blank" class="text-xs text-slate-500 hover:text-primary transition-colors flex items-center gap-1">
+                            <h4 class="text-slate-200 font-bold text-sm truncate" title="${site.title || site.slug}">${site.title || site.slug}</h4>
+                            <a href="${worldUrl}" target="_blank" class="text-xs text-slate-500 hover:text-indigo-400 transition-colors flex items-center gap-1">
                                 <span class="truncate">${displayUrl}</span>
                                 <i data-lucide="external-link" class="w-3 h-3 shrink-0"></i>
                             </a>
@@ -537,12 +537,12 @@ async function renderSitesList() {
                     </button>
                 </div>
                 <div class="flex items-center gap-2 mb-3">
-                    <span class="px-2 py-0.5 text-[10px] rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">⚡ Online</span>
-                    <button onclick="copySiteUrl('${worldUrl}')" class="px-2 py-0.5 text-[10px] rounded-full bg-slate-800 text-slate-400 border border-slate-700 hover:text-white cursor-pointer">📋 Copiar Link</button>
+                    <span class="px-2 py-0.5 text-[10px] rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 animate-pulseNeon">⚡ Online</span>
+                    <button onclick="copySiteUrl('${worldUrl}')" class="px-2 py-0.5 text-[10px] rounded-full bg-slate-800/80 text-slate-400 border border-slate-700/50 hover:text-white cursor-pointer hover-glow">📋 Copiar Link</button>
                 </div>
-                <div class="mt-auto flex items-center justify-between text-xs text-slate-400 border-t border-slate-800/50 pt-3">
+                <div class="mt-auto flex items-center justify-between text-xs text-slate-400 border-t border-slate-800/30 pt-3">
                     <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> ${new Date(site.createdAt).toLocaleDateString('pt-BR')}</span>
-                    <span class="flex items-center gap-1 text-yellow-500"><i data-lucide="zap" class="w-3 h-3"></i> Turbo</span>
+                    <span class="flex items-center gap-1 text-cyan-400 font-bold"><i data-lucide="zap" class="w-3 h-3"></i> Turbo</span>
                 </div>
             </div>`;
         }).join('');
@@ -762,7 +762,8 @@ function renderAdminLicenses(licenses) {
 // ====================================================================
 function showToast(msg) {
     const toast = document.createElement('div');
-    toast.className = 'fixed bottom-6 right-6 bg-slate-800 border border-slate-700 text-white px-6 py-3 rounded-xl shadow-2xl z-[100] text-sm font-medium animate-bounce-in';
+    toast.className = 'fixed bottom-6 right-6 glass-card text-white px-6 py-3 rounded-xl shadow-2xl z-[100] text-sm font-bold animate-fadeInUp border-indigo-500/30';
+    toast.style.borderColor = 'rgba(99,102,241,0.3)';
     toast.textContent = msg;
     document.body.appendChild(toast);
     setTimeout(() => {

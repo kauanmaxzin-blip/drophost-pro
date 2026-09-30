@@ -345,7 +345,7 @@ Sua missão é atender os visitantes aqui no site do DropHost de forma moderna, 
 - NUNCA corte frases. Conclua todas as explicações.
 `;
 
-const VEX_MODELS = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite'];
+const VEX_MODELS = ['gemini-3.1-flash-lite', 'gemini-3.6-flash', 'gemini-3.8-flash'];
 
 app.post('/api/vex/chat', async (req, res) => {
     try {

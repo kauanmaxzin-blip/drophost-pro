@@ -1,3 +1,5 @@
+require('dotenv').config({ override: true });
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
@@ -304,6 +306,98 @@ app.get('/api/plans', (req, res) => {
         duration: p.duration, dailyRestore: p.dailyRestore
     }));
     res.json(plans);
+});
+
+// ============================================================
+// 🤖 ASSISTENTE VIRTUAL VEX — CHAT INTELIGENTE DO SITE
+// ============================================================
+const VEX_SYSTEM_PROMPT = `
+Você é o "Vex", o consultor e especialista técnico virtual oficial do DropHost Tech (DropHost Pro).
+Você é uma inteligência artificial do gênero MASCULINO (sempre se refira a si mesmo como "o Vex", "o seu assistente", "preparado", "pronto", "focado").
+O fundador da plataforma é o Kauan.
+
+Sua missão é atender os visitantes aqui no site do DropHost de forma moderna, inteligente, ágil e comercial, tirando dúvidas técnicas, explicando os planos e conduzindo o cliente para a compra da licença via PIX com o Kauan no WhatsApp.
+
+### 🚀 O que é o DropHost Pro?
+- Plataforma brasileira de hospedagem web ultra rápida desenvolvida com tecnologia de Cache Turbo RAM e compressão Gzip.
+- O usuário apenas arrasta uma pasta ou arquivo .ZIP (HTML, CSS, JavaScript, landing pages, páginas de vendas, portfólios) e o site fica online em menos de 10 segundos com link público seguro e QR Code automático!
+- Sem cPanel, sem FTP, sem complicação de servidores.
+- 30 créditos equivalem a 1 site publicado.
+- Nos planos pagos, os créditos são restaurados todos os dias automaticamente!
+
+### 💰 TABELA REAL DE PLANOS E PREÇOS:
+1. 🎁 Plano Gratuito (Free): R$ 0,00 — 30 créditos (1 site completo vitalício para testar).
+2. 👨‍👩‍👧‍👦 Plano Família (A Maior Oferta!): R$ 80,00 por ANO — Até 5 contas/pessoas com créditos INFINITOS e sites ILIMITADOS por 1 ano inteiro!
+3. ⚡ Promoção Mensal (O Mais Vendido): R$ 50,00 por MÊS — 300 créditos por dia (Permite publicar até 10 sites por dia com renovação diária automática!).
+4. 🔵 Plano Status: R$ 40,00 por MÊS — 30 créditos por dia (1 site por dia).
+5. 🟣 Plano Pro: R$ 150,00 por MÊS — 150 créditos por dia (até 5 sites por dia).
+6. 🟡 Plano Ilimitado Individual: R$ 400,00 por ANO — Sites e créditos ilimitados para uso pessoal por 1 ano.
+
+### 🔑 Como Funciona a Compra da Licença:
+- O cliente escolhe o plano (ex: Promoção Mensal R$ 50/mês ou Plano Família R$ 80/ano).
+- Paga via PIX falando com o Kauan no WhatsApp: (75) 98701-6246.
+- O Kauan gera a Chave de Licença na hora.
+- O cliente clica em "Resgatar Licença" no painel, cola o código e os créditos caem imediatamente na conta!
+
+### 🎯 Diretrizes:
+- Fale sempre no masculino ("eu sou o Vex", "estou preparado para te ajudar").
+- Seja amigável, confiante, conciso e use emojis com bom gosto (🚀, ⚡, 💎, 👨‍👩‍👧‍👦, 🔥).
+- NUNCA corte frases. Conclua todas as explicações.
+`;
+
+const VEX_MODELS = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite'];
+
+app.post('/api/vex/chat', async (req, res) => {
+    try {
+        const { message, history } = req.body;
+        if (!message || !message.trim()) {
+            return res.status(400).json({ error: 'Mensagem vazia.' });
+        }
+
+        const apiKey = process.env.GEMINI_API_KEY;
+        if (!apiKey) {
+            return res.json({ reply: 'Fala! A chave GEMINI_API_KEY ainda não foi configurada no servidor. Cadastre no arquivo .env para me ativar!' });
+        }
+
+        const genAI = new GoogleGenerativeAI(apiKey);
+        let reply = null;
+
+        for (const modelName of VEX_MODELS) {
+            try {
+                const model = genAI.getGenerativeModel({
+                    model: modelName,
+                    systemInstruction: VEX_SYSTEM_PROMPT,
+                    generationConfig: {
+                        temperature: 0.7,
+                        maxOutputTokens: 600
+                    }
+                });
+
+                const formattedHistory = Array.isArray(history) 
+                    ? history.slice(-6).map(h => ({
+                        role: h.sender === 'user' ? 'user' : 'model',
+                        parts: [{ text: h.text }]
+                    }))
+                    : [];
+
+                const chat = model.startChat({ history: formattedHistory });
+                const result = await chat.sendMessage(message);
+                reply = result.response.text();
+                if (reply) break;
+            } catch (err) {
+                console.warn(`[Vex Chat] Modelo ${modelName} oscilou:`, err.message);
+            }
+        }
+
+        if (!reply) {
+            reply = 'Tive uma breve oscilação de conexão aqui. Você pode falar diretamente com o Kauan pelo WhatsApp para ativar seu plano na hora!';
+        }
+
+        res.json({ reply });
+    } catch (e) {
+        console.error('Erro na rota /api/vex/chat:', e);
+        res.status(500).json({ error: 'Erro ao conversar com o Vex.' });
+    }
 });
 
 // 4. Hospedagem de Sites
